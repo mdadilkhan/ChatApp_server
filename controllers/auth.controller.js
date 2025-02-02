@@ -58,10 +58,15 @@ const userLogin = async (req, res) => {
       process.env.SECRET_KEY,
       { expiresIn: "1d" }
     );
-    const newUser = {
-      token,
-    };
-    return res.status(200).json({ message: "Login Success", data: newUser });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
+  
+    return res.status(200).json({ message: "Login Success"});
   } catch (err) {
     console.log(err);
   }
@@ -92,10 +97,14 @@ const socialLogin = async (req, res) => {
       process.env.SECRET_KEY,
       { expiresIn: "1d" }
     );
-    const newUser = {
-      token,
-    };
-    return res.status(200).json({ message: "Login successful", data: newUser });
+    
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
+    return res.status(200).json({ message: "Login successful"});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Something went wrong" });

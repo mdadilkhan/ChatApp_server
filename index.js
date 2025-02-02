@@ -1,10 +1,11 @@
 const express = require('express')
 const path = require('path');
 const cors = require("cors");
-
+const cookieParser = require("cookie-parser");
 
 const connectToDatabase = require('./db/db');
 const authRouter = require('./routes/auth.route');
+const userRouter = require('./routes/user.route');
 
 
 
@@ -12,19 +13,25 @@ const authRouter = require('./routes/auth.route');
 const app = express()
 
 //cors option
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://sub.yourdomain.com",
+  "https://anotherdomain.com"
+];
+
 const corsOptions = {
-  origin: "*",
+  origin: allowedOrigins,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  preflightContinue: false,
+  credentials: true, // ✅ Allow cookies & Authorization headers
   optionsSuccessStatus: 204,
 };
 
 
-//for cors policy 
-app.use(cors(corsOptions)); // Make sure this is placed early
-app.options('*', cors(corsOptions)); // Preflight handler for all routes
-app.use(express.json());
 
+//for cors policy 
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(cookieParser()); 
 
 
 
@@ -35,8 +42,8 @@ app.get('/',(req,res)=>{
 
 
 //Actual Route
-app.use('/api', authRouter);
-
+app.use('/api',authRouter);
+app.use('/api',userRouter)
 
 
 
