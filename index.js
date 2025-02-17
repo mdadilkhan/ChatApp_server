@@ -15,6 +15,7 @@ const app = express()
 //cors option
 const allowedOrigins = [
   "http://localhost:5173",
+  "http://localhost:5174",
   "https://sub.yourdomain.com",
   "https://anotherdomain.com"
 ];
