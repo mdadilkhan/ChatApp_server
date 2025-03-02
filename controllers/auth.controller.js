@@ -74,7 +74,7 @@ const userLogin = async (req, res) => {
 
 const socialLogin = async (req, res) => {
   try {
-    const { name, email, provider } = req.body;
+    const { name, email, provider,image } = req.body;
 
     if (!name || !email) {
       return res.status(400).json({ message: "Name and email are required" });
@@ -89,6 +89,7 @@ const socialLogin = async (req, res) => {
         email,
         isSocialLogin: true, // Mark as social login
         provider, // google or github
+        image
       });
     }
 

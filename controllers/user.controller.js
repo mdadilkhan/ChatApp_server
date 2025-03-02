@@ -21,10 +21,27 @@ const getUserDetials= async(req,res)=>{
         }
         return res.status(200).json({message:"User detials fetched successfully",data:userData})
     } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    
+    }
+}
+
+const getAllUsers=async(req,res)=>{
+
+    try {
+        const currentUserId=req.user.id;
+
+        const users=await User.find({_id:{$ne:currentUserId}}).sort({ createdAt: -1 }).exec();
+        res.status(200).json({message:"Users retrived",data:users})
         
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).json({ message: "Internal Server Error" });    
     }
 }
 
 module.exports={
-    getUserDetials
+    getUserDetials,
+    getAllUsers
 }

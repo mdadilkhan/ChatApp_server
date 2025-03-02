@@ -1,5 +1,5 @@
 const express = require('express');
-const { getUserDetials} = require('../controllers/user.controller');
+const { getUserDetials, getAllUsers} = require('../controllers/user.controller');
 const { authToken } = require('../middleware/authenticateToken');
 
 
@@ -7,6 +7,7 @@ const { authToken } = require('../middleware/authenticateToken');
 const userRouter=express.Router();
 
 userRouter.get('/user/getUserDetials',authToken,getUserDetials)
+userRouter.get('/user/getAllUsers',authToken,getAllUsers)
 
 
 
