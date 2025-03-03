@@ -1,4 +1,4 @@
-const mongoose = -require("mongoose");
+const mongoose = require("mongoose");
 
 const conversationSchema = new mongoose.Schema(
   {
@@ -36,6 +36,7 @@ const conversationSchema = new mongoose.Schema(
 );
 
 // Create the Conversation model
-const Conversation = new mongoose.model({ Conversation });
+
+const Conversation = mongoose.model("Conversation", conversationSchema);
 
 module.exports = Conversation;

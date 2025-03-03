@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const connectToDatabase = require('./db/db');
 const authRouter = require('./routes/auth.route');
 const userRouter = require('./routes/user.route');
-
+const conversationRouter = require('./routes/conversation.route')
 
 
 
@@ -45,6 +45,7 @@ app.get('/',(req,res)=>{
 //Actual Route
 app.use('/api',authRouter);
 app.use('/api',userRouter)
+app.use('/api',conversationRouter)
 
 
 
